@@ -180,7 +180,7 @@ private extension Sensor {
         switch reading {
             case ..<0:
                 return .nan
-            case 35.5..<1000:
+            case 350.5..<1000:
                 return calcAQI(reading, 500.0, 401.0, 500.0, 350.5)
             case 250.5..<350.5:
                 return calcAQI(reading, 400.0, 301.0, 350.4, 250.5)
@@ -214,7 +214,9 @@ struct AQIColor {
     static let purple: Color = Color(red: 143.0, green: 63.0, blue: 151.0)
     static let red: Color = Color(red: 255.0, green: 0.0, blue: 0.0)
     static let orange: Color = Color(red: 207.0, green: 115.0, blue: 50.0)
-    static let yellow: Color = Color(red: 255.0, green: 255.0, blue: 0.0)
+    static let yellow: Color = Color(#colorLiteral(red: 0.9468753934, green: 0.8855330348, blue: 0, alpha: 1))
+//    static let yellow: Color = Color(#colorLiteral(red: 229.0/255.0, green: 193.0/255.0, blue: 45.0/255.0, alpha: 1.0))
+//    static let yellow: Color = Color(#colorLiteral(red: (255.0/255.0), green: (255.0/255.0), blue: 0.0, alpha: 1.0))
     static let green: Color = Color(red: 0.0, green: 228.0, blue: 0.0)
     static let black: Color = Color.black
 }
