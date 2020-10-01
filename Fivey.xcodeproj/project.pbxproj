@@ -60,6 +60,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2740DBA42520203E00E1D6ED /* Fivey.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fivey.entitlements; sourceTree = "<group>"; };
+		2740DBA52520203E00E1D6ED /* FiveyWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FiveyWidgetExtension.entitlements; sourceTree = "<group>"; };
 		DD3FF74124FCAA4F00C17A0A /* FiveyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveyApp.swift; sourceTree = "<group>"; };
 		DD3FF74224FCAA4F00C17A0A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DD3FF74324FCAA5500C17A0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,6 +114,8 @@
 		DD3FF73B24FCAA4E00C17A0A = {
 			isa = PBXGroup;
 			children = (
+				2740DBA52520203E00E1D6ED /* FiveyWidgetExtension.entitlements */,
+				2740DBA42520203E00E1D6ED /* Fivey.entitlements */,
 				DD3FF74024FCAA4F00C17A0A /* Shared */,
 				DD3FF74A24FCAA5500C17A0A /* iOS */,
 				DD3FF75124FCAA5500C17A0A /* macOS */,
@@ -480,8 +484,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Fivey.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F7L4RR4JLD;
+				DEVELOPMENT_TEAM = 2GAG29K8FT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -489,9 +494,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CastIrony.Fivey;
+				PRODUCT_BUNDLE_IDENTIFIER = me.factotum.aqi;
 				PRODUCT_NAME = Fivey;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -503,8 +509,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Fivey.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F7L4RR4JLD;
+				DEVELOPMENT_TEAM = 2GAG29K8FT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -512,9 +519,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CastIrony.Fivey;
+				PRODUCT_BUNDLE_IDENTIFIER = me.factotum.aqi;
 				PRODUCT_NAME = Fivey;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -529,7 +537,7 @@
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = F7L4RR4JLD;
+				DEVELOPMENT_TEAM = 2GAG29K8FT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -538,7 +546,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CastIrony.Fivey;
+				PRODUCT_BUNDLE_IDENTIFIER = me.factotum.aqi;
 				PRODUCT_NAME = Fivey;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -553,7 +561,7 @@
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = F7L4RR4JLD;
+				DEVELOPMENT_TEAM = 2GAG29K8FT;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = macOS/Info.plist;
@@ -562,7 +570,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CastIrony.Fivey;
+				PRODUCT_BUNDLE_IDENTIFIER = me.factotum.aqi;
 				PRODUCT_NAME = Fivey;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -574,8 +582,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FiveyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F7L4RR4JLD;
+				DEVELOPMENT_TEAM = 2GAG29K8FT;
 				INFOPLIST_FILE = FiveyWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -583,10 +592,11 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CastIrony.Fivey.FiveyWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = me.factotum.aqi.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -597,8 +607,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FiveyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F7L4RR4JLD;
+				DEVELOPMENT_TEAM = 2GAG29K8FT;
 				INFOPLIST_FILE = FiveyWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -606,10 +617,11 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CastIrony.Fivey.FiveyWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = me.factotum.aqi.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

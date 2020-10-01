@@ -10,20 +10,21 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (FiveyTimelineEntry) -> ()) {
-        
-        let dataTask = URLSession.shared.dataTask(with: URL(string: Region.jsonURLString[configuration.region.rawValue])!) {
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (FiveyTimelineEntry) -> Void) {
+
+        let sensorID = "55075"
+
+        let dataTask = URLSession.shared.dataTask(with: URL(string: "https://www.purpleair.com/json?show=\(sensorID)")!) {
             (data, response, error) in
 
             guard let data = data else { return }
 
             do {
-                let polls = try JSONDecoder().decode([Poll].self, from: data)
+                let results = try JSONDecoder().decode(SensorResults.self, from: data)
 
-                completion(FiveyTimelineEntry(date: Date(), poll: polls.first, configuration: configuration))
+                completion(FiveyTimelineEntry(date: Date(), result: results))
             } catch {
-                completion(FiveyTimelineEntry(date: Date(), poll: nil, configuration: configuration))
+                completion(FiveyTimelineEntry(date: Date(), result: nil))
             }
         }
 
@@ -37,73 +38,64 @@ struct Provider: IntentTimelineProvider {
     }
 
     func placeholder(in context: Context) -> FiveyTimelineEntry {
-        FiveyTimelineEntry(date: Date(), poll: nil, configuration: ConfigurationIntent())
+        FiveyTimelineEntry(date: Date(), result: nil)
     }
 }
 
 struct FiveyTimelineEntry: TimelineEntry {
     let date: Date
-    let poll: Poll?
-    let configuration: ConfigurationIntent
+    let result: SensorResults?
+//    let configuration: ConfigurationIntent
 }
 
 struct FiveyWidgetEntryView : View {
-    
     var entry: FiveyTimelineEntry
     
     @Environment(\.widgetFamily) private var widgetFamily
-    
-    func percentString(for name: String) -> String {
-        let percent = entry.poll?.candidate(named: name)?.dataPoints.first?.winProbability
-        return percent == nil ? "--" : String(Int(percent! + 0.5))
-    }
 
-    var updatedDateString: String
-    {
-        guard let date = entry.poll?.updated else { return "--" }
-        
+    var updatedDateString: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
 
-        return formatter.string(from: date)
+        return formatter.string(from: entry.date)
     }
-    
+
     var body: some View {
         HStack(spacing: 20) {
-            VStack {
-                VStack(spacing: 0) {
-                    Text(Region.displayName[entry.configuration.region.rawValue])
-                        .font(Font.system(size: 12, weight: .bold, design: .rounded))
-                        .foregroundColor(.secondary)
+            VStack(spacing: 10) {
+                VStack(spacing: 10) {
+                    Text(entry.result?.name ?? "-")
+                        .font(Font.system(size: 9, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
 
                     Label(updatedDateString, systemImage: "clock")
                         .imageScale(.small)
                         .font(Font.system(size: 12, weight: .regular, design: .rounded))
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.white)
                 }
                 
-                Text(percentString(for: "Biden"))
-                    .font(Font.system(size: 45, weight: .bold, design: .rounded))
+                Text(entry.result?.aqi ?? "-")
+                    .font(Font.system(size: 36, weight: .bold, design: .rounded))
                     .fontWeight(.bold)
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Color.white)
 
-                Text(percentString(for: "Trump"))
-                    .font(Font.system(size: 45, weight: .bold, design: .rounded))
+                Text(entry.result?.description ?? "-")
+                    .font(Font.system(size: 16, weight: .bold, design: .rounded))
                     .fontWeight(.bold)
-                    .foregroundColor(Color.red)
+                    .foregroundColor(Color.white)
             }
             
-            if widgetFamily != .systemSmall {
-                Color(UIColor.systemGroupedBackground)
-                    .overlay(WinProbabilityGraph(poll: entry.poll).padding(.trailing, 8))
-                    .clipShape(ContainerRelativeShape())
-            }
+//            if widgetFamily != .systemSmall {
+//                Color(UIColor.systemGroupedBackground)
+//                    .overlay(WinProbabilityGraph(poll: entry.poll).padding(.trailing, 8))
+//                    .clipShape(ContainerRelativeShape())
+//            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight:.infinity)
-        .background(Color(UIColor.secondarySystemGroupedBackground))
-        .widgetURL(URL(string: Region.linkURLString[entry.configuration.region.rawValue])!)
+        .background(entry.result?.color)
+        .widgetURL(URL(string: "https://www.purpleair.com/map?opt=1/i/mAQI/a10/cC0#11/37.973/-122.1015")!)
     }
 }
 
@@ -115,21 +107,21 @@ struct FiveyWidget: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             FiveyWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Fivey")
-        .description("iOS 14 widget to show FiveThirtyEight's 2020 election model results.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .configurationDisplayName("AQI")
+        .description("iOS 14 widget to show PurpleAir AQI")
+        .supportedFamilies([.systemSmall])
     }
 }
 
 struct FiveyWidget_Previews: PreviewProvider {
     static var previews: some View {
         let data = try? Data(contentsOf: Bundle.main.url(forResource: "fixture", withExtension: "json")!)
-        let polls = try? JSONDecoder().decode([Poll].self, from: data!)
+        let staticResults = try? JSONDecoder().decode(SensorResults.self, from: data!)
         
-        FiveyWidgetEntryView(entry: FiveyTimelineEntry(date: Date(), poll: polls?.first, configuration: ConfigurationIntent()))
+        FiveyWidgetEntryView(entry: FiveyTimelineEntry(date: Date(), result: staticResults))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
 
-        FiveyWidgetEntryView(entry: FiveyTimelineEntry(date: Date(), poll: polls?.first, configuration: ConfigurationIntent()))
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
+//        FiveyWidgetEntryView(entry: FiveyTimelineEntry(date: Date(), poll: polls?.first, configuration: ConfigurationIntent()))
+//            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
